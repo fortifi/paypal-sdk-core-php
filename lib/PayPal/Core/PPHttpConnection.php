@@ -94,6 +94,7 @@ class PPHttpConnection
         }
         if (curl_errno($ch)) {
             $ex = new PPConnectionException($this->httpConfig->getUrl(), curl_error($ch), curl_errno($ch));
+            $ex->setData(array('curl_getinfo' => curl_getinfo($ch, CURLINFO_PRIMARY_IP)));
             curl_close($ch);
             throw $ex;
         }
