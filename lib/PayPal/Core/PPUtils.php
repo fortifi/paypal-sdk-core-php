@@ -121,7 +121,7 @@ class PPUtils
                 $child = $children->item($i);
                 if ($child !== null) {
                     if ($child->childNodes->item(0) instanceof \DOMText) {
-                        $result[$i]['name'] = $child->nodeName;
+                        $result[$i]['name'] = last(explode(':',$child->nodeName));
                         $result[$i]['text'] = $child->childNodes->item(0)->nodeValue;
                         if ($child->hasAttributes()) {
                             foreach ($child->attributes as $k => $v) {
@@ -131,7 +131,7 @@ class PPUtils
                             }
                         }
                     } else if (!in_array($child->nodeName, $result)) {
-                        $result[$i]['name']     = $child->nodeName;
+                        $result[$i]['name']     = last(explode(':',$child->nodeName));
                         $result[$i]['children'] = PPUtils::xmlNodeToArray($child);
 
                         if ($child->hasAttributes()) {
